@@ -1,0 +1,42 @@
+# GnuPlot Location
+#------------------------------------------
+reset
+#set pm3d
+print "--- Location sample ---"
+print "*----------------------*"
+#
+cc = 299792458.0
+ll = 100.0
+TT1(x,y) = (sqrt(x**2 + y**2)) * 1000000 / cc
+TT2(x,y) = (sqrt((ll-x)**2 + y**2)) * 1000000 / cc
+TT3(x,y) = (sqrt(x**2 + (ll-y)**2)) * 1000000 / cc
+#------------------------------------------
+set pm3d
+#
+#
+T12(x,y) = TT1(x,y) - TT2(x,y)
+T23(x,y) = TT2(x,y) - TT3(x,y)
+T31(x,y) = TT3(x,y) - TT1(x,y)
+#
+splot  TT1(x,y)
+replot TT2(x,y)
+replot TT3(x,y)
+#
+#splot T12(x,y) + T23(x,y) + T31(x,y)
+#splot 3*T12(x,y) + 2*T23(x,y) + T31(x,y)
+#splot 5*T12(x,y) + 3*T23(x,y) + T31(x,y)
+#
+set isosamples 10,10
+set grid
+set xr [0:100]
+set yr [0:100]
+replot
+#set zr [-1.4:1.4]
+set zr [-0.1:0.7]
+set ztics 0.1
+#
+set contour
+set cntrparam level 8
+replot
+#
+#
